@@ -15,12 +15,15 @@ public class OrderServiceImpl implements OrderService {
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
+
     @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         System.out.println("1번 생성자 호출");
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
+
+
 
 
 //    @Autowired
