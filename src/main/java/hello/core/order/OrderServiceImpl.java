@@ -6,46 +6,25 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
 
-    @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-        System.out.println("1번 생성자 호출");
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
-    }
-
-
-
-
 //    @Autowired
-//    public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+//        System.out.println("1번 생성자 호출");
 //        this.memberRepository = memberRepository;
 //        this.discountPolicy = discountPolicy;
 //    }
 
-//    @Autowired private MemberRepository memberRepository;
-//    @Autowired private DiscountPolicy discountPolicy;
-
-//    @Autowired
-//    public void setMemberRepository(MemberRepository memberRepository) {
-//        System.out.println("2번 세터 호출");
-//        this.memberRepository = memberRepository;
-//    }
-//
-//    @Autowired
-//    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
-//        System.out.println("2번 세터 호출");
-//        this.memberRepository = memberRepository;
-//    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
