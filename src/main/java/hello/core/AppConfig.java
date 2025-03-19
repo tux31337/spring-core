@@ -2,8 +2,6 @@ package hello.core;
 
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
-import hello.core.discount.RateDiscountPolicy;
-import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
@@ -15,8 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-    // @Bean memberService -> new MemoryMemberRepository()
-    // @Bean orderService -> new MemoryMemberRepository() ??
+    //@ Bean 이붙으면 기본적으로 method 이름으로 등록됨
 
     @Bean
     public MemberService memberService() {
@@ -25,7 +22,7 @@ public class AppConfig {
     }
 
     @Bean
-    public MemberRepository memberRepository() {
+    public MemoryMemberRepository memberRepository() {
         System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
@@ -34,11 +31,10 @@ public class AppConfig {
     public OrderService orderService() {
         System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
-//        return null;
     }
 
     @Bean
     public DiscountPolicy discountPolicy() {
-        return new RateDiscountPolicy();
+        return new FixDiscountPolicy();
     }
 }
