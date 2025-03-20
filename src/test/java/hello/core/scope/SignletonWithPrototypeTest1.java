@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 
+import javax.inject.Provider;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SignletonWithPrototypeTest1 {
@@ -44,12 +46,11 @@ public class SignletonWithPrototypeTest1 {
     @Scope("singleton")
     static class ClientBean {
         @Autowired
-        private ObjectProvider<PrototypeBean> prototypeBeanProvider;
-
+        private Provider<PrototypeBean> prototypeBeanProvider;
 
         public int logic() {
             // 우리가 getObject를 요청하면 그때서야 prototypebEAN을 찾아서 반환해주는 형태임.. 그레서 필요할때마다 스플이 컨티이너에 요청해서 계속 새롭게 생성됨.
-            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+            PrototypeBean prototypeBean = prototypeBeanProvider.get();
             prototypeBean.addCount();
             return prototypeBean.getCOUNT();
         }
