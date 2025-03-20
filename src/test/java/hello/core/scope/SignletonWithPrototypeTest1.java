@@ -4,10 +4,9 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,14 +43,13 @@ public class SignletonWithPrototypeTest1 {
 
     @Scope("singleton")
     static class ClientBean {
-
         @Autowired
-        private ApplicationContext ac;
-
+        private ObjectProvider<PrototypeBean> prototypeBeanProvider;
 
 
         public int logic() {
-            PrototypeBean prototypeBean = ac.getBean(PrototypeBean.class);
+            // 우리가 getObject를 요청하면 그때서야 prototypebEAN을 찾아서 반환해주는 형태임.. 그레서 필요할때마다 스플이 컨티이너에 요청해서 계속 새롭게 생성됨.
+            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
             prototypeBean.addCount();
             return prototypeBean.getCOUNT();
         }
